@@ -7,27 +7,34 @@ import Navbar from "./components/Navbar";
 import Products from "./components/Products";
 import Sidebar from "./components/Sidebar";
 import useProducts from "./hooks/useProducts";
+import CartProvider from "./provider/CartProvider";
 
 function App() {
   const [page, setPage] = useState("home");
+  const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({
     category: "",
     priceRange: [1000, 2000],
     minRating: 4,
   });
 
-  const { products, loading, error } = useProducts(
-    filters.category,
-    filters.minRating
-  );
+  const { products, loading, error } = useProducts({
+    query: searchQuery,
+    category: filters.category,
+    minRating: filters.minRating,
+  });
 
   return (
-    <>
-      <Navbar setPage={setPage} />
+    <CartProvider>
+      <Navbar
+        setPage={setPage}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       {page === "home" && (
         <MainLayout>
           <HeroSection />
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Sidebar setFilters={setFilters} filters={filters} />
             <Products products={products} loading={loading} error={error} />
           </div>
@@ -35,7 +42,7 @@ function App() {
       )}
       {page === "cart" && <Cart />}
       <Footer />
-    </>
+    </CartProvider>
   );
 }
 

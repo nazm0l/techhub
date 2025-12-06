@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { CartContext } from "../context";
+
 export default function ProductCard({ product = {} }) {
+  const { addToCart } = useContext(CartContext);
   const {
     title,
     price,
@@ -41,7 +45,10 @@ export default function ProductCard({ product = {} }) {
             In Stock ({stock})
           </span>
         </div>
-        <button className="w-full button-primary py-2.5 rounded-lg font-semibold">
+        <button
+          className="w-full button-primary py-2.5 rounded-lg font-semibold"
+          onClick={() => addToCart(product.id)}
+        >
           Add to Cart
         </button>
       </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useProducts = (category, minRating) => {
+const useProducts = ({ query, category, minRating }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState({
     state: false,
@@ -15,7 +15,9 @@ const useProducts = (category, minRating) => {
         message: "Fetching products...",
       });
 
-      let url = `http://localhost:9000/products?category=${category}&minRating=${minRating}`;
+      let url = `http://localhost:9000/products?q=${query || ""}&category=${
+        category || ""
+      }&minRating=${minRating || ""}`;
 
       const response = await fetch(url);
 
@@ -45,7 +47,7 @@ const useProducts = (category, minRating) => {
 
   useEffect(() => {
     fetchProducts();
-  }, [category, minRating]);
+  }, [query, category, minRating]);
 
   return {
     products,

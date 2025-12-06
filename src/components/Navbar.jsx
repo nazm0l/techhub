@@ -1,4 +1,8 @@
-export default function Navbar({ setPage }) {
+import { useContext } from "react";
+import { CartContext } from "../context";
+
+export default function Navbar({ setPage, searchQuery, setSearchQuery }) {
+  const { cart } = useContext(CartContext);
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -45,6 +49,8 @@ export default function Navbar({ setPage }) {
                 <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
               </svg>
               <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 type="text"
                 placeholder="Search laptops, GPUs, desktops..."
                 className="bg-transparent text-sm placeholder:text-slate-400 focus:outline-none w-64"
@@ -70,7 +76,7 @@ export default function Navbar({ setPage }) {
             </svg>
             <span className="text-sm font-semibold text-slate-900">Cart</span>
             <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-rose-500 text-white text-xs font-bold flex items-center justify-center shadow">
-              3
+              {cart.length}
             </span>
           </a>
         </div>
