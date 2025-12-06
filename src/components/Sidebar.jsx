@@ -43,7 +43,14 @@ export default function Sidebar({ filters, setFilters }) {
       <div className="soft-card p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-slate-900">Filters</h3>
-          <button className="text-xs text-rose-500 font-semibold">Clear</button>
+          <button
+            className="text-xs text-rose-500 font-semibold"
+            onClick={() =>
+              setFilters({ category: "", priceRange: [], minRating: 0 })
+            }
+          >
+            Clear
+          </button>
         </div>
 
         {/* <!-- Category Filter --> */}
@@ -155,15 +162,8 @@ export default function Sidebar({ filters, setFilters }) {
               <input
                 type="checkbox"
                 className="w-4 h-4 text-rose-500 rounded border-slate-300"
-                checked={filters.minRating >= 4.5}
-                onChange={(e) => {
-                  const { checked } = e.target;
-                  if (checked) {
-                    handleRatingChange(4.5);
-                  } else {
-                    handleRatingChange(0);
-                  }
-                }}
+                checked={filters.minRating === 4.5}
+                onChange={() => handleRatingChange(4.5)}
               />
               <span className="ml-3 text-sm text-slate-700">4.5 ⭐ & up</span>
             </label>
@@ -171,15 +171,8 @@ export default function Sidebar({ filters, setFilters }) {
               <input
                 type="checkbox"
                 className="w-4 h-4 text-rose-500 rounded border-slate-300"
-                checked={filters.minRating >= 4.0}
-                onChange={(e) => {
-                  const { checked } = e.target;
-                  if (checked) {
-                    handleRatingChange(4.0);
-                  } else {
-                    handleRatingChange(0);
-                  }
-                }}
+                checked={filters.minRating === 4.0}
+                onChange={() => handleRatingChange(4.0)}
               />
               <span className="ml-3 text-sm text-slate-700">4.0 ⭐ & up</span>
             </label>
@@ -187,15 +180,8 @@ export default function Sidebar({ filters, setFilters }) {
               <input
                 type="checkbox"
                 className="w-4 h-4 text-rose-500 rounded border-slate-300"
-                checked={filters.minRating >= 3.5}
-                onChange={(e) => {
-                  const { checked } = e.target;
-                  if (checked) {
-                    handleRatingChange(3.5);
-                  } else {
-                    handleRatingChange(0);
-                  }
-                }}
+                checked={filters.minRating === 3.5}
+                onChange={() => handleRatingChange(3.5)}
               />
               <span className="ml-3 text-sm text-slate-700">3.5 ⭐ & up</span>
             </label>

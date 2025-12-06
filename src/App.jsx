@@ -14,14 +14,15 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({
     category: "",
-    priceRange: [1000, 2000],
-    minRating: 4,
+    priceRange: [],
+    minRating: 0,
   });
 
   const { products, loading, error } = useProducts({
     query: searchQuery,
     category: filters.category,
     minRating: filters.minRating,
+    priceRange: filters.priceRange,
   });
 
   return (
